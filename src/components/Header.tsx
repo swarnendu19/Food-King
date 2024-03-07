@@ -5,18 +5,22 @@ import { useState } from 'react'
 const user = {_id: "ags", role: "admin"}
 
 function Header() {
+  const [isOpen, setIsopen] = useState<boolean>(false);
+  
+  const logouthandler = async ()=>{
+    setIsopen(false)
+  }
 
-  const [isOpen, setIsopen] = useState<boolean>(false)
   return (
     <nav className='header'>
-     <Link to={"/"} >
+     <Link to={"/"} onClick={()=>setIsopen(false)}>
         Home
      </Link>
-     <Link to={"/search"}>
+     <Link to={"/search"} onClick={()=>setIsopen(false)}>
         <FaSearch/>
      </Link>
 
-     <Link to={"/cart"}>
+     <Link to={"/cart"} onClick={()=>setIsopen(false)}>
       <FaShoppingBag/>
      </Link>
 
@@ -30,21 +34,21 @@ function Header() {
         <div>
           {
             user.role == "admin" && (
-              <Link to={"/admin/dashboard"}>Admin</Link>
+              <Link to={"/admin/dashboard"} onClick={()=>setIsopen(false)}>Admin</Link>
             )
           }
 
-          <Link to={"/orders"}>
+          <Link onClick={()=>setIsopen(false)} to={"/orders"}>
             Orders
           </Link>
-          <button>
+          <button onClick={logouthandler}>
             <FaSignOutAlt/>
           </button>
         </div>
        </dialog>
       </>
       ) : (
-       <Link to={"/login"}>
+       <Link to={"/login"} >
         <FaSignInAlt/>
        </Link>
      )
